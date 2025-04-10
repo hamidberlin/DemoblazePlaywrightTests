@@ -1,0 +1,58 @@
+{
+  "compilerOptions": {
+    /* Spracheinstellungen */
+    "target": "ES6",                           /* Ziel-JavaScript-Version */
+    "module": "node16",                        /* Modulformat */
+    "esModuleInterop": true,                   /* Unterstützt Interoperabilität zwischen ES-Modulen und CommonJS */
+    "forceConsistentCasingInFileNames": true,  /* Sicherstellen, dass Dateinamen konsistent sind */
+
+    /* Ausgabeverzeichnisse */
+    "outDir": "./dist",                        /* Zielordner für JavaScript-Dateien */
+    "sourceMap": true,                         /* Erzeugt Sourcemaps für Debugging */
+    "declaration": true,                       /* Erzeugt .d.ts Dateien für TypeScript */
+    "declarationMap": true,                    /* Erzeugt Sourcemaps für .d.ts Dateien */
+    
+    /* Typprüfungsoptionen */
+    "strict": true,                            /* Aktiviert alle strikten Typprüfungen */
+    "skipLibCheck": true,                      /* Überspringt die Typprüfung in .d.ts Dateien */
+    "noUnusedLocals": true,                    /* Fehler bei nicht verwendeten Variablen */
+    "noUnusedParameters": true,                /* Fehler bei nicht verwendeten Parametern */
+    "noImplicitAny": true,                     /* Verhindert den Typ 'any' bei Variablen */
+    "noImplicitReturns": true,                 /* Fehler, wenn eine Funktion keinen Rückgabewert hat */
+    "noFallthroughCasesInSwitch": true,        /* Verhindert Fallthrough in Switch-Anweisungen */
+    
+    /* Import-Auflösung */
+    "moduleResolution": "node16",              /* Verwenden der Node.js-Modulauflösung */
+    "resolveJsonModule": true,                 /* Ermöglicht das Importieren von .json Dateien */
+    "resolvePackageJsonExports": true,         /* Unterstützt das Importieren von exports aus package.json */
+    
+    /* Code-Kompatibilität */
+    "skipDefaultLibCheck": true,               /* Überspringt die Typprüfung von Standardbibliotheken */
+    "downlevelIteration": true,                /* Kompiliert Iterationen zu einer kompatiblen Form */
+
+    /* Ausgabe und Formatierung */
+    "removeComments": true,                    /* Entfernt Kommentare aus dem finalen JavaScript */
+    "noEmitOnError": true,                     /* Verhindert das Erzeugen von Dateien bei Fehlern */
+    "preserveConstEnums": true,                /* Erhält 'const enum'-Deklarationen */
+    
+    /* Bibliotheken */
+    "lib": ["ES6", "DOM"],                     /* Bibliotheken für das JavaScript-Ziel (z. B. ES6, DOM) */
+    "types": ["node", "jest", "playwright"],   /* Hier kannst du zusätzliche Typen für deine Tests einbinden */
+
+    /* Weitere Optimierungen */
+    "incremental": true,                       /* Aktiviert inkrementelle Kompilierung */
+    "noEmit": false,                           /* Ermöglicht das Erzeugen von JavaScript-Dateien */
+    "isolatedModules": true                    /* Jedes File ist isoliert kompilierbar (für bessere Performance) */
+  },
+  "include": [
+    "tests/**/*.ts",                           /* Dein Test-Verzeichnis für TypeScript-Dateien */
+    "e2e/**/*.ts",                             /* Dein End-to-End Test-Verzeichnis */
+    "pages/**/*.ts"                            /* Wenn du Seiten mit TypeScript hast */
+  ],
+  "exclude": [
+    "node_modules",                            /* Sicherstellen, dass node_modules nicht kompiliert wird */
+    "dist",                                    /* Dist-Ordner sollte auch ignoriert werden */
+    "playwright-report",                       /* Playwright Berichte nicht kompilieren */
+    "test-results"                             /* Test-Ergebnisse werden nicht kompiliert */
+  ]
+}
