@@ -1,0 +1,34 @@
+# Node modules (Pflicht!)
+node_modules/
+
+# Playwright Artefakte
+test-results/
+playwright-report/
+*.zip
+
+# Optional: gespeicherte Screenshots, Videos, Traces
+screenshots/
+videos/
+traces/
+
+# Build-Output (z. B. bei TypeScript oder Next.js)
+dist/
+out/
+build/
+
+# Vscode Settings (nur wenn du sie nicht teilen willst)
+.vscode/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env-Dateien (Sicherheitsrelevant!)
+.env
+.env.local
+.env.*.local
+
+# OS-Spezifisches
+.DS_Store
+Thumbs.db
