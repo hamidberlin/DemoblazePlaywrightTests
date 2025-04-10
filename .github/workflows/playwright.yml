@@ -11,24 +11,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Repository auschecken
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Node.js installieren
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '18'
 
-      - name: 📦 Abhängigkeiten installieren
+      - name: Install dependencies
         run: npm ci
 
-      - name: ⬇️ Playwright installieren
-        run: npx playwright install --with-deps
+      - name: Install Playwright and dependencies
+        run: |
+          npx playwright install --with-deps
+          npx playwright install
 
-      - name: 🧪 Tests ausführen
+      - name: Run Playwright tests
         run: npx playwright test
 
-      - name: 📊 Report hochladen
+      - name: Upload Playwright report
         if: always()
         uses: actions/upload-artifact@v3
         with:
