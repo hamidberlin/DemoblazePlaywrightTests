@@ -1,46 +1,47 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// Hauptkonfiguration für Playwright
 export default defineConfig({
-  // Ordner, in dem sich deine Tests befinden
+  // Ordner, in dem sich die Tests befinden
   testDir: 'tests',
 
-  // Alle Tests parallel ausführen
+  // Tests parallel ausführen (beschleunigt Testlauf)
   fullyParallel: true,
 
-  // In CI darf kein `.only` im Code sein – verhindert versehentliches Auslassen von Tests
+  // `.only` in Tests ist in CI nicht erlaubt (verhindert versehentliches Auslassen)
   forbidOnly: !!process.env.CI,
 
-  // Wie oft soll ein fehlgeschlagener Test neu versucht werden? (nur in CI sinnvoll)
+  // In CI fehlgeschlagene Tests bis zu 2× wiederholen
   retries: process.env.CI ? 2 : 0,
 
-  // In CI nur einen Worker nutzen, lokal alle verfügbaren
+  // In CI nur 1 Worker, lokal so viele wie möglich
   workers: process.env.CI ? 1 : undefined,
 
-  // Testreporter (hier: HTML + CLI-Listenausgabe)
+  // Reporter für die Testergebnisse (Liste in Konsole + HTML-Report)
   reporter: [
-    ['list'],
-    ['html', { open: 'never', outputFolder: 'playwright-report' }], // Fester Ordner für GitHub Actions
+    ['list'], // CLI-Ausgabe
+    ['html', { open: 'never', outputFolder: 'playwright-report' }], // HTML-Report speichern
   ],
 
-  // Globale Testkonfiguration
+  // Globale Einstellungen für alle Tests
   use: {
-    // Basis-URL für `page.goto('/')` und Co.
-    baseURL: process.env.BASE_URL || 'http://localhost:3000',
+    // Basis-URL für Seitenaufrufe
+    baseURL: process.env.BASE_URL || 'https://www.demoblaze.com',
 
-    // Screenshots nur bei Fehlern speichern (hilft beim Debuggen)
+    // Screenshot nur bei Fehlern
     screenshot: 'only-on-failure',
 
-    // Videos nur bei Fehlern speichern (hilfreich in CI)
+    // Video nur bei Fehlern speichern
     video: 'retain-on-failure',
 
-    // Bei einem Fehler im ersten Lauf: Tracing aktivieren für bessere Analyse
+    // Bei erstem Fehlschlag Trace zur Analyse aktivieren
     trace: 'on-first-retry',
   },
 
-  // Projekte definieren verschiedene Testumgebungen/Browsers
+  // Tests in verschiedenen Browsern laufen lassen
   projects: [
     {
-      name: 'Chromium',
+      name: 'Chromium', // Chrome-basiert
       use: { ...devices['Desktop Chrome'] },
     },
     {
@@ -48,23 +49,16 @@ export default defineConfig({
       use: { ...devices['Desktop Firefox'] },
     },
     {
-      name: 'WebKit',
+      name: 'WebKit', // Safari (macOS/iOS)
       use: { ...devices['Desktop Safari'] },
     },
   ],
 
-  // Dev-Server starten, bevor Tests beginnen (z. B. bei React/Vite/Next.js)
-  webServer: {
-    command: 'npm run start',
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI, // lokal: nicht neu starten, wenn schon läuft
-  },
+  // Maximale Laufzeit für jeden Test (in Millisekunden)
+  timeout: 30 * 1000,
 
-  // Optional: Timeout für einzelne Tests (in ms)
-  timeout: 30 * 1000, 
-
-  // Optional: Timeout für einzelne `expect()`-Assertions
+  // Maximale Wartezeit für Assertions wie `expect()`
   expect: {
-    timeout: 5000, 
+    timeout: 5000,
   },
 });
