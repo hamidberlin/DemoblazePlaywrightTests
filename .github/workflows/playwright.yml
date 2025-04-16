@@ -1,27 +1,45 @@
 name: Playwright Tests
+
+# Diese GitHub Actions werden bei jedem Push oder Pull Request auf main ausgeführt
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      # Schritt 1: Repository-Code auschecken
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Schritt 2: Node.js installieren (empfohlen: LTS-Version)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      # Schritt 3: Abhängigkeiten installieren (wie in package-lock.json festgelegt)
+      - name: Install dependencies
+        run: npm ci
+
+      # Schritt 4: Playwright-Browser & Dependencies installieren
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      # Schritt 5: Tests ausführen
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      # Schritt 6: Report hochladen (nur wenn nicht abgebrochen)
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

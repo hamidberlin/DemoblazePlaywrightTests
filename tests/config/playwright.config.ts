@@ -19,7 +19,7 @@ export default defineConfig({
   // Testreporter (hier: HTML + CLI-Listenausgabe)
   reporter: [
     ['list'],
-    ['html', { open: 'never' }], // kein automatisches Öffnen nach dem Lauf
+    ['html', { open: 'never', outputFolder: 'playwright-report' }], // Fester Ordner für GitHub Actions
   ],
 
   // Globale Testkonfiguration
